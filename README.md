@@ -153,4 +153,17 @@ docker network help
 docker network create ${name}
 docker network connect ${networkname} ${containername}
 ```
+#### Docker Compose
+Docker Compose digunakan untuk mengelola aplikasi multi-container Docker. Ini memungkinkan Anda mendefinisikan aplikasi dengan menggunakan file YAML untuk mengonfigurasi layanan aplikasi, jaringan, dan volume yang terpisah. Dengan Docker Compose, Anda dapat dengan mudah menjalankan, menghentikan, dan menyiapkan aplikasi yang terdiri dari beberapa kontainer dengan satu perintah.
+*Untuk lebih lengkapnya sudah saya buatkan file docker-compose.yml*
+```
+# running docker compose di backgroud dan generate container
+docker compose up -d
+# kill container dan delete container
+docker compose down
+# hanya start container tanpa nge build
+docker compose start
+# hanya stop container tanpa menghapus
+docker compose stop
+```
 
