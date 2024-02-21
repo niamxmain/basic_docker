@@ -1,1 +1,25 @@
+version: "3.8"
 
+services:
+    redis:
+        container_name: redis
+        image: redis:5
+        ports:
+            - 5678:5678
+        networks:
+            - app1_network
+    app1:
+        container_name: app1
+        image: app1:1.0
+        ports: 
+            - 8080:8080
+        depends_on:
+            - redis
+        environment:
+            - MONGO_HOST:mongo
+            - MONGO_PORT:5678
+        networks:
+            - app1_network
+networks:
+    app1_network:
+        name: app1_network
