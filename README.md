@@ -166,4 +166,13 @@ docker compose start
 # hanya stop container tanpa menghapus
 docker compose stop
 ```
+#### Docker Volume 
+Docker volume digunakan untuk menyimpan data yang ingin dipertahankan atau dibagikan di antara container Docker. Volume memungkinkan data untuk tetap ada meskipun container dihapus, dihentikan, atau diperbarui. Mereka juga memungkinkan container berbagi data dengan cara yang aman dan efisien. Dengan menggunakan volume, Anda dapat memisahkan data dari container itu sendiri, yang berguna dalam pengelolaan data yang persisten dan pengembangan aplikasi yang terdistribusi.
+```
+# create docker volume
+docker volume ${volumename} || docker volume redis_volume
+# create container with volume [-v] for volume || ${volumename} bisa diganti dengan local diirectori
+docker container create --name redis -p 5678:5678 -v ${volumename}:${db_folder} redis:${tag} || docker container create --name redis -p 5678:5678 -v redis_volume:/usr/local/etc/redis redis:5
+# 
+```
 
