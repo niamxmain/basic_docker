@@ -112,6 +112,10 @@ docker container rm ${name container}
 # contoh
 docker container rm app1
 ```
+#### Cek inspect Container
+```
+docker container inspect ${containername}
+```
 #### Create Docker File
 ```
 FROM golang:1.4.11 //install images
@@ -131,3 +135,22 @@ docker build --tag app1:1.0 niam/home
 - docker push ${username}/${nameimages}:${tag} || docker push muhniam/app1:1.0
 - samakan Images local dengan Images HUB = docker tag ${local image} ${online image} || docker tag app1:1.0 muhniam/app1:1.0
 - lakukan lagi langkah ke2
+
+#### Menghubungkan Container 1 dengan yang lain
+Case: sebuah aplikasi yang membutuhkan database agar bisa untuk menyimpan data, dan memanfaatkan ENV.
+```
+#terdapat 2 buah image yaitu redis dan app1
+#build container redis
+docker container create --name redis -p 5678:5678 redis:5
+#build container app1 dengan menggunakan container redis || -e untuk setting environment
+docker container create --name app1 -p 8080:8080 -e ${key}:${val} app1:1.0 || docker container create --name app1 -p 8080:8080 -e REDIS_HOST:redis -e REDIS_PORT:5678 app1:1.0
+```
+#### Docker Network
+Secara default, sebuah container dibangun secara terisolasi yang memungkinkannya beroperasi secara independen dan tidak langsung terhubung atau dipengaruhi oleh container lain. Maka dari itu digunakannya *Docker Network*. Sistem ini memungkinkan sebuah container dapat saling terhubung dan memanfaatkan dirinya satu sama lain, ibarat sebuah kolam yang diisi beberapa jenis ikan yang saling membutuhkan satu sama lain.
+Command:
+```
+docker network help
+docker network create ${name}
+docker network connect ${networkname} ${containername}
+```
+
